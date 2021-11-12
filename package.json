@@ -1,0 +1,44 @@
+{
+    "name": "da-pizda-telegram-bot",
+    "version": "0.0.0",
+    "description": "This is very important bot, really",
+    "homepage": "https://github.com/erickskrauch/da-pizda-telegram-bot",
+    "bugs": {
+        "url": "https://github.com/erickskrauch/da-pizda-telegram-bot/issues"
+    },
+    "license": "WTFPL",
+    "author": {
+        "name": "ErickSkrauch",
+        "email": "erickskrauch@ely.by",
+        "url": "https://github.com/erickskrauch"
+    },
+    "main": "dist/bot.js",
+    "repository": "erickskrauch/todo",
+    "scripts": {
+        "start": "ts-node src/bot.ts",
+        "build": "yarn clean && tsc -p tsconfig-build.json",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "tsc": "tsc --pretty",
+        "clean": "rimraf dist",
+        "lint": "prettier --check .",
+        "lint:fix": "prettier --write ."
+    },
+    "dependencies": {
+        "dotenv": "^10.0.0",
+        "node-telegram-bot-api": "^0.54.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^27.0.0",
+        "@types/node": "^14.14.37",
+        "@types/node-telegram-bot-api": "^0.53.2",
+        "jest": "^27.0.0",
+        "prettier": "^2.2.1",
+        "ts-jest": "^27.0.0",
+        "ts-node": "^10.4.0",
+        "typescript": "^4.2.3"
+    },
+    "engines": {
+        "node": "14.x"
+    }
+}
