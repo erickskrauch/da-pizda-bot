@@ -22,7 +22,8 @@ export function getResponse(message: string): string | undefined {
     const { prefix, d, delimiter, a, postfix } = match.groups;
 
     let letters = ['п', 'и', 'з', 'д', 'а'];
-    if (a[0].toLowerCase() === 'a') { // English "a"
+    // English "a"
+    if (a[0].toLowerCase() === 'a') {
         letters[4] = 'a';
     }
 
