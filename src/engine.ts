@@ -3,15 +3,13 @@ const daRegExp = new RegExp(
     [
         '^',
         `(?<prefix>[${punct}}]*)`,
-        '(?<d>[дД]+)',
+        '(?<d>[дДdD]+)',
         `(?<delimiter>[${punct}]*)`,
-        '(?<a>[аА]+)',
+        '(?<a>[аАaA]+)',
         `(?<postfix>[${punct}]*)`,
         '$',
     ].join(''),
 );
-
-const letters: ReadonlyArray<string> = ['п', 'и', 'з', 'д', 'а'];
 
 export function getResponse(message: string): string | undefined {
     message = message.trim();
@@ -22,6 +20,19 @@ export function getResponse(message: string): string | undefined {
 
     // @ts-ignore they are exists, trust me
     const { prefix, d, delimiter, a, postfix } = match.groups;
+
+    let letters = ['п', 'и', 'з', 'д', 'а'];
+    if (a[0].toLowerCase() === 'a') { // English "a"
+        letters[4] = 'a';
+    }
+
+    if (d[0].toLowerCase() === 'd') {
+        letters[3] = 'd';
+    }
+
+    if (letters[4] === 'a' && letters[3] === 'd') {
+        letters = ['p', 'i', 'z', 'd', 'a'];
+    }
 
     let result = '';
 

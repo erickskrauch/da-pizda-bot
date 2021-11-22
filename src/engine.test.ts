@@ -35,6 +35,16 @@ describe('getResponse', () => {
         it('should detect repeating а letter and preserve case', () => expect(getResponse('даАаА')).toBe('пиздаАаА'));
     });
 
+    describe('should handle attempts to use english characters', () => {
+        it('should handle English d instead of д', () => expect(getResponse('Dа')).toBe('Пизdа'));
+        it('should handle mix of d and д', () => expect(getResponse('DдdДа')).toBe('ПппПизdа'));
+
+        it('should handle English a instead of а', () => expect(getResponse('Дa')).toBe('Пиздa'));
+        it('should handle mix of a and а', () => expect(getResponse('ДaАAа')).toBe('ПиздaAAa'));
+
+        it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
+    });
+
     describe('should be forgiven if the answer is more detailed', () => {
         it('case 1', () => expect(getResponse('да, мы милосердны')).toBeUndefined());
         it('case 2', () => expect(getResponse('мы милосердны, да')).toBeUndefined());
