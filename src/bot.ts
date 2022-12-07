@@ -1,5 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
 import { config as configureDotenv } from 'dotenv';
+import Graceful from 'node-graceful';
 import { getResponse } from './engine';
 
 configureDotenv();
@@ -26,4 +27,10 @@ bot.on('message', (message) => {
     }
 
     bot.sendMessage(chatId, response);
+});
+
+Graceful.captureExceptions = true;
+Graceful.on('exit', async () => {
+    await bot.stopPolling({ cancel: true });
+    process.exit();
 });
