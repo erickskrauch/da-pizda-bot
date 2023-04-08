@@ -40,7 +40,14 @@ describe('getResponse', () => {
         it('should handle mix of d and д', () => expect(getResponse('DдdДа')).toBe('ПппПизdа'));
 
         it('should handle English a instead of а', () => expect(getResponse('Дa')).toBe('Пиздa'));
-        it('should handle mix of a and а', () => expect(getResponse('ДaАAа')).toBe('ПиздaAAa'));
+        it('should handle mix of a and а', () => expect(getResponse('ДaАAа')).toBe('ПиздaАAа'));
+
+        it('should handle @', () => expect(getResponse('Д@')).toBe('Пизд@'));
+        it('should handle ą', () => expect(getResponse('Дą')).toBe('Пиздą'));
+        it('should handle Ą', () => expect(getResponse('ДĄ')).toBe('ПИЗДĄ'));
+        it('should handle ª', () => expect(getResponse('Дª')).toBe('Пиздª'));
+        it('should handle á', () => expect(getResponse('Дá')).toBe('Пиздá'));
+        it('should handle Á', () => expect(getResponse('ДÁ')).toBe('ПИЗДÁ'));
 
         it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
     });

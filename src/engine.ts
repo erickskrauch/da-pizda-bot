@@ -1,3 +1,5 @@
+import { clean as removeDiacritic } from 'diacritic';
+
 const punct = '!"#$%& \'()*+,\\-./:;<=>?@[\\\\\\]^_`{|}~';
 const daRegExp = new RegExp(
     [
@@ -5,7 +7,7 @@ const daRegExp = new RegExp(
         `(?<prefix>[${punct}}]*)`,
         '(?<d>[дДdD]+)',
         `(?<delimiter>[${punct}]*)`,
-        '(?<a>[аАaA]+)',
+        '(?<a>[аАaA@ª]+)',
         `(?<postfix>[${punct}]*)`,
         '$',
     ].join(''),
@@ -13,7 +15,8 @@ const daRegExp = new RegExp(
 
 export function getResponse(message: string): string | undefined {
     message = message.trim();
-    const match = message.match(daRegExp);
+    const normalizedMessage = removeDiacritic(message);
+    const match = normalizedMessage.match(daRegExp);
     if (!match) {
         return;
     }
@@ -22,9 +25,11 @@ export function getResponse(message: string): string | undefined {
     const { prefix, d, delimiter, a, postfix } = match.groups;
 
     let letters = ['п', 'и', 'з', 'д', 'а'];
-    // English "a"
-    if (a[0].toLowerCase() === 'a') {
-        letters[4] = 'a';
+    letters[4] = a;
+
+    // Diacritics detected
+    if (message !== normalizedMessage) {
+        letters[4] = message.substr(prefix.length + d.length + delimiter.length, a.length);
     }
 
     if (d[0].toLowerCase() === 'd') {
@@ -39,9 +44,9 @@ export function getResponse(message: string): string | undefined {
 
     result += repeatCase(d, letters[0]);
     result += letters.slice(1, -1).join('');
-    result += repeatCase(a, letters[letters.length - 1]); // TODO: replace with .at(-1) for Node.js 16.6
+    result += letters[4];
 
-    if (isCapital(d) && isCapital(a)) {
+    if (isCapital(d[0]) && isCapital(a[0])) {
         result = result.toUpperCase();
     }
 
@@ -80,5 +85,5 @@ function repeatCase(source: string, char: string): string {
 }
 
 function isCapital(char: string): boolean {
-    return char.toUpperCase() === char;
+    return char.toLowerCase() !== char;
 }
