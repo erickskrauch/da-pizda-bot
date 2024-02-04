@@ -67,6 +67,7 @@ describe('getResponse', () => {
     describe('should handle pictographic', () => {
         it('should handle emoji after text', () => expect(getResponse('Да 😊')).toBe('Пизда 😊'));
         it('should handle emoji after text', () => expect(getResponse('😊 Да')).toBe('😊 Пизда'));
+        it('should handle combined emojis', () => expect(getResponse('Да 👩🏾‍🌾')).toBe('Пизда 👩🏾‍🌾'));
         it('should handle pictographic after text', () => expect(getResponse('Да ♡')).toBe('Пизда ♡'));
         it('should handle pictographic after text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
     });

@@ -1,6 +1,13 @@
 import { clean as removeDiacritic } from 'diacritic';
 
-const punct = '\\p{P}\\p{Z}\\p{Extended_Pictographic}\\u2060';
+const punct = [
+    '\\p{P}', // All and every possible punctuation characters
+    '\\p{Z}', // All (almost) and every possible whitespace characters
+    '\\p{ExtPict}', // All pictographic and all base emojis
+    '\\p{EMod}', // All emoji modifiers (like skin tone)
+    '\\u200d', // Emoji Zero Width Joiner (ZWJ)
+    '\\u2060', // Word-Joiner zero width whitespace
+].join();
 
 const daRegExp = new RegExp(
     [
