@@ -1,6 +1,6 @@
 import { clean as removeDiacritic } from 'diacritic';
 
-const punct = '\\p{P}\\p{Z}\\p{Extended_Pictographic}';
+const punct = '\\p{P}\\p{Z}\\p{Extended_Pictographic}\\u2060';
 
 const daRegExp = new RegExp(
     [

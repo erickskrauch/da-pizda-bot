@@ -27,9 +27,16 @@ describe('getResponse', () => {
         it('should skip numerics before', () => expect(getResponse('12, да')).toBeUndefined());
     });
 
+    describe('should handle whitespaces', () => {
+        it('should detect single space between д and а letters', () => expect(getResponse('д а')).toBe('п и з д а'));
+        it('should detect multiple spaces between д and а letters', () => expect(getResponse('д  а')).toBe('п  и  з  д  а'));
+        // https://en.wikipedia.org/wiki/Non-breaking_space
+        it('should detect word-joiner between д and а letters', () => expect(getResponse('д\u2060а')).toBe('п\u2060и\u2060з\u2060д\u2060а'));
+        it('should detect figure-space space between д and а letters', () => expect(getResponse('д\u2007а')).toBe('п\u2007и\u2007з\u2007д\u2007а'));
+        it('should detect narrow non-breaking space between д and а letters', () => expect(getResponse('д\u202fа')).toBe('п\u202fи\u202fз\u202fд\u202fа'));
+    });
+
     describe('should handle some interesting cases', () => {
-        it('should detect space between д and а letters', () => expect(getResponse('д а')).toBe('п и з д а'));
-        it('should detect spaces between д and а letters', () => expect(getResponse('д  а')).toBe('п  и  з  д  а'));
         it('should detect not only spaces', () => expect(getResponse('д.а')).toBe('п.и.з.д.а'));
         it('should detect different characters', () => expect(getResponse('д.!?а')).toBe('п.!?и.!?з.!?д.!?а'));
 
