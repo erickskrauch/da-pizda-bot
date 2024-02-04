@@ -1,6 +1,7 @@
 import { clean as removeDiacritic } from 'diacritic';
 
-const punct = '!"#$%& \'()*+,\\-./:;<=>?@[\\\\\\]^_`{|}~';
+const punct = '\\p{P}\\p{Z}\\p{Extended_Pictographic}';
+
 const daRegExp = new RegExp(
     [
         '^',
@@ -11,6 +12,7 @@ const daRegExp = new RegExp(
         `(?<postfix>[${punct}]*)`,
         '$',
     ].join(''),
+    'u',
 );
 
 export function getResponse(message: string): string | undefined {

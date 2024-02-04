@@ -22,6 +22,11 @@ describe('getResponse', () => {
         it('should correctly inverse single !', () => expect(getResponse('Да!')).toBe('Пизда?'));
     });
 
+    describe('should skip when contains numeric characters around', () => {
+        it('should skip numerics after', () => expect(getResponse('Да, 12')).toBeUndefined());
+        it('should skip numerics before', () => expect(getResponse('12, да')).toBeUndefined());
+    });
+
     describe('should handle some interesting cases', () => {
         it('should detect space between д and а letters', () => expect(getResponse('д а')).toBe('п и з д а'));
         it('should detect spaces between д and а letters', () => expect(getResponse('д  а')).toBe('п  и  з  д  а'));
@@ -50,6 +55,13 @@ describe('getResponse', () => {
         it('should handle Á', () => expect(getResponse('ДÁ')).toBe('ПИЗДÁ'));
 
         it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
+    });
+
+    describe('should handle pictographic', () => {
+        it('should handle emoji after text', () => expect(getResponse('Да 😊')).toBe('Пизда 😊'));
+        it('should handle emoji after text', () => expect(getResponse('😊 Да')).toBe('😊 Пизда'));
+        it('should handle pictographic after text', () => expect(getResponse('Да ♡')).toBe('Пизда ♡'));
+        it('should handle pictographic after text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
     });
 
     describe('should be forgiven if the answer is more detailed', () => {
