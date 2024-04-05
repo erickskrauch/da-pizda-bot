@@ -9,9 +9,11 @@ RUN --mount=type=bind,src=./package.json,target=/build/package.json,readonly \
     --mount=type=bind,target=/root/.yarn,rw \
     #########################################
     cd /build \
+ && apk add --no-cache --virtual build-deps git \
  && yarn install --cache-folder /root/.yarn \
  && yarn build \
  && yarn install --cache-folder /root/.yarn --prod \
+ && apk del build-deps \
  && mv /build/dist /app \
  && mv /build/node_modules /app/node_modules
 
