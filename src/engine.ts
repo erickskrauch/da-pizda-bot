@@ -1,6 +1,7 @@
 import { clean as removeDiacritic } from 'diacritic';
 
 const punct = [
+    '\\n', // New line
     '\\p{P}', // All and every possible punctuation characters
     '\\p{Z}', // All (almost) and every possible whitespace characters
     '\\p{ExtPict}', // All pictographic and all base emojis

@@ -30,6 +30,8 @@ describe('getResponse', () => {
     describe('should handle whitespaces', () => {
         it('should detect single space between д and а letters', () => expect(getResponse('д а')).toBe('п и з д а'));
         it('should detect multiple spaces between д and а letters', () => expect(getResponse('д  а')).toBe('п  и  з  д  а'));
+        it('should detect new line between д and а letters', () => expect(getResponse('д\nа')).toBe('п\nи\nз\nд\nа'));
+        it('should detect multiple new lines between д and а letters', () => expect(getResponse('д\n\nа')).toBe('п\n\nи\n\nз\n\nд\n\nа'));
         // https://en.wikipedia.org/wiki/Non-breaking_space
         it('should detect word-joiner between д and а letters', () => expect(getResponse('д\u2060а')).toBe('п\u2060и\u2060з\u2060д\u2060а'));
         it('should detect figure-space space between д and а letters', () => expect(getResponse('д\u2007а')).toBe('п\u2007и\u2007з\u2007д\u2007а'));
