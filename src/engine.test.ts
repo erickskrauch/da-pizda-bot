@@ -40,7 +40,9 @@ describe('getResponse', () => {
 
     describe('should handle some interesting cases', () => {
         it('should detect not only spaces', () => expect(getResponse('д.а')).toBe('п.и.з.д.а'));
-        it('should detect different characters', () => expect(getResponse('д.!?а')).toBe('п.!?и.!?з.!?д.!?а'));
+        it('should detect punctuation characters', () => expect(getResponse('д.!?а')).toBe('п.!?и.!?з.!?д.!?а'));
+        it('should detect math characters', () => expect(getResponse('д+а')).toBe('п+и+з+д+а'));
+        it('should detect ☆ character', () => expect(getResponse('д☆а')).toBe('п☆и☆з☆д☆а'));
 
         it('should detect repeating д letter', () => expect(getResponse('дда')).toBe('ппизда'));
         it('should detect repeating д letter and preserve case', () => expect(getResponse('дДдДа')).toBe('пПпПизда'));

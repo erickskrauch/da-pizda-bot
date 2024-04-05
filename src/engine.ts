@@ -1,8 +1,10 @@
 import { clean as removeDiacritic } from 'diacritic';
 
+// https://www.regular-expressions.info/unicode.html#category
 const punct = [
     '\\n', // New line
     '\\p{P}', // All and every possible punctuation characters
+    '\\p{S}', // All math symbols, currency signs, dingbats, box-drawing characters, etc.
     '\\p{Z}', // All (almost) and every possible whitespace characters
     '\\p{ExtPict}', // All pictographic and all base emojis
     '\\p{EMod}', // All emoji modifiers (like skin tone)
