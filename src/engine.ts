@@ -48,7 +48,7 @@ export function getResponse(message: string): string | undefined {
         letters[3] = 'd';
     }
 
-    if (letters[4] === 'a' && letters[3] === 'd') {
+    if (letters[3] === 'd' && letters[4] === 'a') {
         letters = ['p', 'i', 'z', 'd', 'a'];
     }
 
