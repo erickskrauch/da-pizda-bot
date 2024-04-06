@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:14.21-alpine3.16 AS build
+FROM node:20-alpine3.19 AS build
 
 RUN --mount=type=bind,src=./package.json,target=/build/package.json,readonly \
     --mount=type=bind,src=./yarn.lock,target=/build/yarn.lock,readonly \
