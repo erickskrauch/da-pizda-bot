@@ -35,9 +35,9 @@ jobs:
 
       - name: Upload build artifacts
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: dist-${{ github.sha }}
           path: dist
           retention-days: 7
 
