@@ -10,6 +10,6 @@
         "baseUrl": "src",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "noEmit": true
+        "noEmit": true,
     }
 }

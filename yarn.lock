@@ -1521,10 +1521,6 @@ detect-newline@^3.0.0:
   resolved "https://registry.yarnpkg.com/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==
 
-"diacritic@https://github.com/erickskrauch/Diacritics.js#eth_support":
-  version "0.0.3"
-  resolved "https://github.com/erickskrauch/Diacritics.js#c4b5444aed18a7593ed6a3a5072162fdaac8b974"
-
 diff-sequences@^29.6.3:
   version "29.6.3"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-29.6.3.tgz#4deaf894d11407c51efc8418012f9e70b84ea921"
@@ -3619,6 +3615,10 @@ url-parse@^1.5.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+"utfstring@https://github.com/erickskrauch/utfstring#build":
+  version "3.1.2"
+  resolved "https://github.com/erickskrauch/utfstring#d9056c10fef031610737b856f93361a5b75c1cbf"
 
 util-deprecate@~1.0.1:
   version "1.0.2"

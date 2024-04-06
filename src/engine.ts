@@ -1,4 +1,5 @@
-import { clean as removeDiacritic } from 'diacritic';
+import { UtfString } from 'utfstring';
+import { normalizeString } from './unicode';
 
 const P = 0;
 const I = 1;
@@ -24,7 +25,7 @@ const daRegExp = new RegExp(
         `(?<prefix>[${punct}}]*)`,
         '(?<d>[дДdD]+)',
         `(?<delimiter>[${punct}]*)`,
-        '(?<a>[аАaA@ª]+)',
+        '(?<a>[аАaA]+)',
         `(?<postfix>[${punct}]*)`,
         '$',
     ].join(''),
@@ -33,7 +34,7 @@ const daRegExp = new RegExp(
 
 export function getResponse(message: string): string | undefined {
     message = message.trim();
-    const normalizedMessage = removeDiacritic(message);
+    const normalizedMessage = normalizeString(message);
     const match = normalizedMessage.match(daRegExp);
     if (!match) {
         return;
@@ -43,8 +44,8 @@ export function getResponse(message: string): string | undefined {
     const { prefix, d, delimiter, a, postfix } = match.groups;
 
     let letters = ['п', 'и', 'з', 'д', 'а'];
-    letters[D] = message[prefix.length].toLowerCase();
-    letters[A] = message.substr(prefix.length + d.length + delimiter.length, a.length);
+    letters[D] = new UtfString(message.substring(prefix.length)).charAt(0).toLowerCase().toString();
+    letters[A] = new UtfString(message.substring(0, message.length - postfix.length)).substr(-a.length).toString();
 
     if (isLatin(d[0]) && isLatin(a[0])) {
         letters[P] = 'p';

@@ -66,6 +66,8 @@ describe('getResponse', () => {
         it('should handle Á', () => expect(getResponse('ДÁ')).toBe('ПИЗДÁ'));
         it('should handle Ð', () => expect(getResponse('Ðä')).toBe('Pizðä'));
         it('should handle Ɖ', () => expect(getResponse('Ɖª')).toBe('Pizɖª'));
+        it('should handle enclosed characters 🅳🅰', () => expect(getResponse('🅳🅰')).toBe('PIZ🅳🅰'));
+        it('should handle æ as a', () => expect(getResponse('дæ')).toBe('пиздæ'));
 
         it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
     });
@@ -75,7 +77,7 @@ describe('getResponse', () => {
         it('should handle emoji after text', () => expect(getResponse('😊 Да')).toBe('😊 Пизда'));
         it('should handle combined emojis', () => expect(getResponse('Да 👩🏾‍🌾')).toBe('Пизда 👩🏾‍🌾'));
         it('should handle pictographic after text', () => expect(getResponse('Да ♡')).toBe('Пизда ♡'));
-        it('should handle pictographic after text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
+        it('should handle pictographic before text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
     });
 
     describe('should be forgiven if the answer is more detailed', () => {

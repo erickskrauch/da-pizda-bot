@@ -23,10 +23,10 @@
         "clean": "rimraf dist"
     },
     "dependencies": {
-        "diacritic": "https://github.com/erickskrauch/Diacritics.js#eth_support",
         "dotenv": "^16",
         "node-graceful": "^3",
-        "node-telegram-bot-api": "^0.65"
+        "node-telegram-bot-api": "^0.65",
+        "utfstring": "https://github.com/erickskrauch/utfstring#build"
     },
     "devDependencies": {
         "@types/jest": "^29",
