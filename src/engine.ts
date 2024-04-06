@@ -1,5 +1,11 @@
 import { clean as removeDiacritic } from 'diacritic';
 
+const P = 0;
+const I = 1;
+const Z = 2;
+const D = 3;
+const A = 4;
+
 // https://www.regular-expressions.info/unicode.html#category
 const punct = [
     '\\n', // New line
@@ -37,26 +43,20 @@ export function getResponse(message: string): string | undefined {
     const { prefix, d, delimiter, a, postfix } = match.groups;
 
     let letters = ['п', 'и', 'з', 'д', 'а'];
-    letters[4] = a;
+    letters[D] = message[prefix.length].toLowerCase();
+    letters[A] = message.substr(prefix.length + d.length + delimiter.length, a.length);
 
-    // Diacritics detected
-    if (message !== normalizedMessage) {
-        letters[4] = message.substr(prefix.length + d.length + delimiter.length, a.length);
-    }
-
-    if (d[0].toLowerCase() === 'd') {
-        letters[3] = 'd';
-    }
-
-    if (letters[3] === 'd' && letters[4] === 'a') {
-        letters = ['p', 'i', 'z', 'd', 'a'];
+    if (isLatin(d[0]) && isLatin(a[0])) {
+        letters[P] = 'p';
+        letters[I] = 'i';
+        letters[Z] = 'z';
     }
 
     let result = '';
 
-    result += repeatCase(d, letters[0]);
+    result += repeatCase(d, letters[P]);
     result += letters.slice(1, -1).join('');
-    result += letters[4];
+    result += letters[A];
 
     if (isCapital(d[0]) && isCapital(a[0])) {
         result = result.toUpperCase();
@@ -98,4 +98,8 @@ function repeatCase(source: string, char: string): string {
 
 function isCapital(char: string): boolean {
     return char.toLowerCase() !== char;
+}
+
+function isLatin(char: string): boolean {
+    return !['д', 'Д', 'а', 'А'].includes(char);
 }

@@ -64,7 +64,8 @@ describe('getResponse', () => {
         it('should handle ª', () => expect(getResponse('Дª')).toBe('Пиздª'));
         it('should handle á', () => expect(getResponse('Дá')).toBe('Пиздá'));
         it('should handle Á', () => expect(getResponse('ДÁ')).toBe('ПИЗДÁ'));
-        it('should handle Ð', () => expect(getResponse('Ðä')).toBe('Пизdä'));
+        it('should handle Ð', () => expect(getResponse('Ðä')).toBe('Pizðä'));
+        it('should handle Ɖ', () => expect(getResponse('Ɖª')).toBe('Pizɖª'));
 
         it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
     });
