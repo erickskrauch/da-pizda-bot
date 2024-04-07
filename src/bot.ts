@@ -15,7 +15,11 @@ const bot = new TelegramBot(botToken, {
 });
 
 bot.on('message', (message) => {
-    const chatId = message.chat.id;
+    // Don't react to the old messages
+    if (message.date < (Date.now() / 1000) - 5) {
+        return;
+    }
+
     const text = message.text || message.caption;
     if (!text) {
         return;
@@ -43,7 +47,7 @@ bot.on('message', (message) => {
         }
     }
 
-    bot.sendMessage(chatId, response, {
+    bot.sendMessage(message.chat.id, response, {
         reply_to_message_id: replyToMessageId,
         message_thread_id: threadId,
     });
