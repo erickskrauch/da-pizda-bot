@@ -26,7 +26,9 @@ bot.on('message', (message) => {
         return;
     }
 
-    bot.sendMessage(chatId, response);
+    bot.sendMessage(chatId, response, {
+        message_thread_id: message.message_thread_id,
+    });
 });
 
 Graceful.captureExceptions = true;
