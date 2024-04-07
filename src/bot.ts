@@ -26,8 +26,26 @@ bot.on('message', (message) => {
         return;
     }
 
+    let replyToMessageId: number|undefined = undefined;
+    let threadId: number|undefined = undefined;
+    // React to a post on the channel that showed up in the linked group
+    if (message.is_automatic_forward) {
+        replyToMessageId = message.message_id;
+    }
+
+    if (message.message_thread_id) {
+        // If there are topics in the group, write a reply to it.
+        // Otherwise, it's a comment under a post in the linked group
+        if (message.sender_chat?.is_forum) {
+            threadId = message.message_thread_id;
+        } else {
+            replyToMessageId = message.message_thread_id;
+        }
+    }
+
     bot.sendMessage(chatId, response, {
-        message_thread_id: message.message_thread_id,
+        reply_to_message_id: replyToMessageId,
+        message_thread_id: threadId,
     });
 });
 
