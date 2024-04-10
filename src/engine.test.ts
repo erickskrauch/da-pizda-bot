@@ -83,6 +83,7 @@ describe('getResponse', () => {
     describe('just random cases reported by users', () => {
         it('ДⱯ!', () => expect(getResponse('ДⱯ!')).toBe('ПИЗДⱯ?'));
         it('ДÆ?', () => expect(getResponse('ДÆ?')).toBe('ПИЗДÆ!'));
+        it('ДǢ', () => expect(getResponse('ДǢ')).toBe('ПИЗДǢ'));
     });
 
     describe('should be forgiven if the answer is more detailed', () => {
