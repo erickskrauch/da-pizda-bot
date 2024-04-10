@@ -80,6 +80,10 @@ describe('getResponse', () => {
         it('should handle pictographic before text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
     });
 
+    describe('just random cases reported by users', () => {
+        it('ДⱯ!', () => expect(getResponse('ДⱯ!')).toBe('ПИЗДⱯ?'));
+    });
+
     describe('should be forgiven if the answer is more detailed', () => {
         it('case 1', () => expect(getResponse('да, мы милосердны')).toBeUndefined());
         it('case 2', () => expect(getResponse('мы милосердны, да')).toBeUndefined());
