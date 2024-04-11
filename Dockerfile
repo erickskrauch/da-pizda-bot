@@ -17,4 +17,4 @@ RUN --mount=type=bind,src=./package.json,target=/build/package.json,readonly \
  && mv /build/dist /app \
  && mv /build/node_modules /app/node_modules
 
-CMD ["node", "/app/bot.js"]
+CMD ["node", "/app/index.js"]
