@@ -1,10 +1,10 @@
 {
-    "name": "da-pizda-telegram-bot",
+    "name": "da-pizda-bot",
     "version": "0.0.0",
-    "description": "This is very important bot, really",
-    "homepage": "https://github.com/erickskrauch/da-pizda-telegram-bot",
+    "description": "Незаменимый сервис напоминаний",
+    "homepage": "https://github.com/erickskrauch/da-pizda-bot",
     "bugs": {
-        "url": "https://github.com/erickskrauch/da-pizda-telegram-bot/issues"
+        "url": "https://github.com/erickskrauch/da-pizda-bot/issues"
     },
     "license": "WTFPL",
     "author": {
@@ -12,10 +12,8 @@
         "email": "erickskrauch@ely.by",
         "url": "https://github.com/erickskrauch"
     },
-    "main": "dist/bot.js",
-    "repository": "erickskrauch/todo",
     "scripts": {
-        "start": "ts-node src/bot.ts",
+        "start": "ts-node src/index.ts",
         "build": "yarn clean && tsc -p tsconfig-build.json",
         "test": "jest",
         "test:watch": "jest --watch",
@@ -23,6 +21,7 @@
         "clean": "rimraf dist"
     },
     "dependencies": {
+        "discord.js": "^14",
         "dotenv": "^16",
         "node-graceful": "^3",
         "node-telegram-bot-api": "^0.65",

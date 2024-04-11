@@ -1,4 +1,4 @@
-import { getResponse } from './engine';
+import { getResponse } from './answerProvider';
 
 describe('getResponse', () => {
     describe('should trim input', () => expect(getResponse('  да \n')).toBe('пизда'));
