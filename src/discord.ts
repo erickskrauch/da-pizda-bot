@@ -1,4 +1,5 @@
 import { Client as DiscordClient, Events, GatewayIntentBits } from 'discord.js';
+import { escapeMarkdown } from '@discordjs/formatters';
 import { BotLauncher, MessageHandler, ShutdownFunction } from './Engine';
 import UnconfiguredException from './UnconfiguredException';
 
@@ -45,7 +46,7 @@ export function launch(token: string, handler: MessageHandler): Promise<Shutdown
                 return;
             }
 
-            message.channel.send(response).catch(console.error);
+            message.channel.send(escapeMarkdown(response)).catch(console.error);
         });
 
         discord.on(Events.Error, console.error);

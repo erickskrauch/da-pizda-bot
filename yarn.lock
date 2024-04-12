@@ -566,7 +566,7 @@
   resolved "https://registry.yarnpkg.com/@discordjs/collection/-/collection-2.0.0.tgz#409b80c74eb8486cc4ee6a9b83426aaff1380f8c"
   integrity sha512-YTWIXLrf5FsrLMycpMM9Q6vnZoR/lN2AWX23/Cuo8uOOtS8eHB2dyQaaGnaF8aZPYnttf2bkLMcXn/j6JUOi3w==
 
-"@discordjs/formatters@^0.3.3":
+"@discordjs/formatters@^0.3", "@discordjs/formatters@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@discordjs/formatters/-/formatters-0.3.3.tgz#b16fdd79bb819680ab7e519193004e9dc124a749"
   integrity sha512-wTcI1Q5cps1eSGhl6+6AzzZkBBlVrBdc9IUhJbijRgVjCNIIIZPgqnUj3ntFODsHrdbGU8BEG9XmDQmgEEYn3w==
