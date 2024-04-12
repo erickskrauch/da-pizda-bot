@@ -84,6 +84,8 @@ describe('getResponse', () => {
         it('ДⱯ!', () => expect(getResponse('ДⱯ!')).toBe('ПИЗДⱯ?'));
         it('ДÆ?', () => expect(getResponse('ДÆ?')).toBe('ПИЗДÆ!'));
         it('ДǢ', () => expect(getResponse('ДǢ')).toBe('ПИЗДǢ'));
+        it('ΔΑ', () => expect(getResponse('ΔΑ')).toBe('PIZΔΑ'));
+        it('δα', () => expect(getResponse('δα')).toBe('pizδα'));
     });
 
     describe('should be forgiven if the answer is more detailed', () => {
