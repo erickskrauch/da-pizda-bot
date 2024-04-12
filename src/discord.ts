@@ -1,4 +1,4 @@
-import { Client as DiscordClient, Events, GatewayIntentBits } from 'discord.js';
+import { ChannelType, Client as DiscordClient, Events, GatewayIntentBits, Partials } from 'discord.js';
 import { escapeMarkdown } from '@discordjs/formatters';
 import { BotLauncher, MessageHandler, ShutdownFunction } from './Engine';
 import UnconfiguredException from './UnconfiguredException';
@@ -19,6 +19,10 @@ export function launch(token: string, handler: MessageHandler): Promise<Shutdown
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMessages,
                 GatewayIntentBits.MessageContent,
+                GatewayIntentBits.DirectMessages,
+            ],
+            partials: [
+                Partials.Channel,
             ],
         });
         discord.login(token).then(() => {
@@ -46,7 +50,11 @@ export function launch(token: string, handler: MessageHandler): Promise<Shutdown
                 return;
             }
 
-            message.channel.send(escapeMarkdown(response)).catch(console.error);
+            if (message.channel.type === ChannelType.DM) {
+                message.author.send(escapeMarkdown(response)).catch(console.error);
+            } else {
+                message.channel.send(escapeMarkdown(response)).catch(console.error);
+            }
         });
 
         discord.on(Events.Error, console.error);
