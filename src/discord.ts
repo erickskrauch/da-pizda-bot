@@ -30,11 +30,6 @@ export function launch(token: string, handler: MessageHandler): Promise<Shutdown
                 return;
             }
 
-            // Don't react to the old messages
-            if (message.createdTimestamp < (Date.now() / 1000) - 5) {
-                return;
-            }
-
             const text = message.content;
             if (!text) {
                 return;
