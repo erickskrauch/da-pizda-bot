@@ -1,5 +1,4 @@
-import { UtfString } from 'utfstring';
-import { normalizeString } from './unicode';
+import { splitByGlyph, normalizeString } from './unicode';
 
 const P = 0;
 const I = 1;
@@ -44,8 +43,8 @@ export function getResponse(message: string): string | undefined {
     const { prefix, d, delimiter, a, postfix } = match.groups;
 
     let letters = ['п', 'и', 'з', 'д', 'а'];
-    letters[D] = new UtfString(message.substring(prefix.length)).charAt(0).toLowerCase().toString();
-    letters[A] = new UtfString(message.substring(0, message.length - postfix.length)).substr(-a.length).toString();
+    letters[D] = splitByGlyph(message.substring(prefix.length))[0].toLowerCase();
+    letters[A] = splitByGlyph(message.substring(0, message.length - postfix.length)).slice(-a.length).join('');
 
     if (isLatin(d[0]) && isLatin(a[0])) {
         letters[P] = 'p';

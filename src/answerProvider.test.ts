@@ -89,6 +89,7 @@ describe('getResponse', () => {
         it('Да́', () => expect(getResponse('Да́')).toBe('Пизда́'));
         it('ДА̀', () => expect(getResponse('ДА̀')).toBe('ПИЗДА̀'));
         it('Д𐌀', () => expect(getResponse('Д𐌀')).toBe('ПИЗД𐌀'));
+        it('д̌ӓ̄', () => expect(getResponse('д̌ӓ̄')).toBe('пизд̌ӓ̄')); // https://github.com/erickskrauch/da-pizda-bot/issues/18
     });
 
     describe('should be forgiven if the answer is more detailed', () => {

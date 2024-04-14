@@ -1,4 +1,8 @@
-import { UtfString } from 'utfstring';
+const segmenter = new Intl.Segmenter(['ru', 'en']);
+
+export function splitByGlyph(str: string): Array<string> {
+    return Array.from(segmenter.segment(str)).map(({ segment }) => segment);
+}
 
 const normalizationMap = new Map<string, string>();
 // Please note that this dictionary is adjusted to needs of this project and doesn't match Unicode confusion dictionary
@@ -15,17 +19,15 @@ const normalizationDictionary: Record<string, string> = {
     'а': 'а́а̂а̄ӓӑа̊а̃ӓ̄ӕа̨ѧ',
 };
 for (const normalLetter in normalizationDictionary) {
-    const utfDict = new UtfString(normalizationDictionary[normalLetter]);
-    for (const confusingChar of utfDict) {
-        normalizationMap.set(confusingChar.toString(), normalLetter);
+    for (const confusingChar of splitByGlyph(normalizationDictionary[normalLetter])) {
+        normalizationMap.set(confusingChar, normalLetter);
     }
 }
 
 export function normalizeString(str: string): string {
-    const utfString = new UtfString(str);
     let result = '';
-    for (const char of utfString) {
-        result += normalizationMap.get(char.toString()) || char;
+    for (const char of splitByGlyph(str)) {
+        result += normalizationMap.get(char) || char;
     }
 
     return result;
