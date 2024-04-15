@@ -2,6 +2,7 @@ import { ChannelType, Client as DiscordClient, Events, GatewayIntentBits, Partia
 import { escapeMarkdown } from '@discordjs/formatters';
 import { BotLauncher, MessageHandler, ShutdownFunction } from './Engine';
 import UnconfiguredException from './UnconfiguredException';
+import { markdownToTxt } from './markdown';
 
 export function getLauncherFromEnv(): BotLauncher {
     const token = process.env.DISCORD_BOT_TOKEN;
@@ -41,7 +42,7 @@ export function launch(token: string, handler: MessageHandler): Promise<Shutdown
             }
 
             const response = handler({
-                text,
+                text: markdownToTxt(text),
                 chat: message.channelId,
                 sender: message.author.id,
                 sentAt: message.createdAt,
