@@ -49,6 +49,15 @@ describe('getResponse', () => {
 
         it('should detect repeating а letter', () => expect(getResponse('даа')).toBe('пиздаа'));
         it('should detect repeating а letter and preserve case', () => expect(getResponse('даАаА')).toBe('пиздаАаА'));
+
+        it('should detect english o', () => expect(getResponse('дo')).toBe('пиздo'));
+        it('should detect russian o', () => expect(getResponse('до")).toBe('пиздо'));
+    
+        it('should detect double english o', () => expect(getResponse('дoo')).toBe('пиздoo'));
+        it('should detect double russian o', () => expect(getResponse('доо")).toBe('пиздоо'));
+
+        it('should detect russian & english o', () => expect(getResponse('доo")).toBe('пиздоо'));
+        it('should detect english & russian o', () => expect(getResponse('дoо")).toBe('пиздоо'));
     });
 
     describe('should handle attempts to use english characters', () => {
@@ -68,7 +77,7 @@ describe('getResponse', () => {
         it('should handle Ɖ', () => expect(getResponse('Ɖª')).toBe('Pizɖª'));
         it('should handle enclosed characters 🅳🅰', () => expect(getResponse('🅳🅰')).toBe('PIZ🅳🅰'));
         it('should handle æ as a', () => expect(getResponse('дæ')).toBe('пиздæ'));
-
+        it('should handle lf as да', () => expect(getResponse('lf')).toBe('gbplf'));
         it('should handle both English letters', () => expect(getResponse('Da')).toBe('Pizda'));
     });
 
