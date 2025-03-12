@@ -45,12 +45,21 @@ export async function launch(token: string, handler: MessageHandler): Promise<Sh
         }
 
         if (message.message_thread_id) {
-            // If there are topics in the group, write a reply to it.
-            // Otherwise, it's a comment under a post in the linked group
             if (message.sender_chat?.is_forum) {
+                // If there are topics in the group, write to the correct one
                 threadId = message.message_thread_id;
-            } else {
+            } else if (message.reply_to_message?.sender_chat?.type === 'channel') {
+                // This is the comment under the post
                 replyToMessageId = message.message_thread_id;
+            } else {
+                // This is the reply to some comment under the post
+                // TODO: This is not a perfect solution, as there is no way to distinguish between a reply to a comment
+                //       under a post and a simple reply in a supergroup chat.
+                //       But if I don't do this, the bot will post a response to a comment with a reply just
+                //       to the group bound to the channel.
+                //       This solution fixes comments under posts, but leads to the creation of unwanted quotes on
+                //       messages with replies in supergroups.
+                replyToMessageId = message.message_id;
             }
         }
 
