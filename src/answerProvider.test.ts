@@ -93,6 +93,12 @@ describe('getResponse', () => {
         it('д̌ӓ̄', () => expect(getResponse('д̌ӓ̄')).toBe('пизд̌ӓ̄')); // https://github.com/erickskrauch/da-pizda-bot/issues/18
     });
 
+    describe('should not corrupt surrogate pairs when joining with a delimiter', () => {
+        it('should keep fancy Unicode letters intact when a delimiter is present', () => {
+            expect(getResponse('𝓓**𝓐')).toBe('P**I**Z**𝓓**𝓐');
+        });
+    });
+
     describe('should be forgiven if the answer is more detailed', () => {
         it('case 1', () => expect(getResponse('да, мы милосердны')).toBeUndefined());
         it('case 2', () => expect(getResponse('мы милосердны, да')).toBeUndefined());

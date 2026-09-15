@@ -62,7 +62,7 @@ export function getResponse(message: string): string | undefined {
     }
 
     if (delimiter) {
-        result = result.split('').join(delimiter);
+        result = splitByGlyph(result).join(delimiter);
     }
 
     if (prefix) {
