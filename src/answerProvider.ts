@@ -14,8 +14,7 @@ const punct = [
     '\\p{Z}', // All (almost) and every possible whitespace characters
     '\\p{ExtPict}', // All pictographic and all base emojis
     '\\p{EMod}', // All emoji modifiers (like skin tone)
-    '\\u200d', // Emoji Zero Width Joiner (ZWJ)
-    '\\u2060', // Word-Joiner zero width whitespace
+    '\\p{Cf}', // All invisible formatting characters (ZWJ, ZWNJ, word joiner, zero-width space, soft hyphen, BOM, etc.)
 ].join();
 
 const daRegExp = new RegExp(
