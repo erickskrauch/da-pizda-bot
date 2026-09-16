@@ -74,11 +74,24 @@ describe('getResponse', () => {
     });
 
     describe('should handle pictographic', () => {
-        it('should handle emoji after text', () => expect(getResponse('Да 😊')).toBe('Пизда 😊'));
-        it('should handle emoji after text', () => expect(getResponse('😊 Да')).toBe('😊 Пизда'));
-        it('should handle combined emojis', () => expect(getResponse('Да 👩🏾‍🌾')).toBe('Пизда 👩🏾‍🌾'));
         it('should handle pictographic after text', () => expect(getResponse('Да ♡')).toBe('Пизда ♡'));
         it('should handle pictographic before text', () => expect(getResponse('♡ Да')).toBe('♡ Пизда'));
+    });
+
+    describe('should handle emojis', () => {
+        it('should handle emoji before text', () => expect(getResponse('😊Да')).toBe('😊Пизда'));
+        it('should handle emoji after text', () => expect(getResponse('Да 😊')).toBe('Пизда 😊'));
+        it('should handle an emoji with a variation selector 1', () => expect(getResponse('Да ❤️')).toBe('Пизда ❤️'));
+        it('should handle an emoji with a variation selector 2', () => expect(getResponse('Да 🖤')).toBe('Пизда 🖤'));
+        it('should handle complex emojis', () => expect(getResponse('Да 👩🏾‍🌾')).toBe('Пизда 👩🏾‍🌾'));
+
+        it('should handle enclosed characters with an emoji variation selector 🅳️🅰️', () => expect(getResponse('🅳️🅰️')).toBe('PIZ🅳️🅰️'));
+
+        it('should handle different variation selectors correctly for D and A and for the delimiter', () => expect(getResponse('🇩💙🅰️')).toBe('P💙I💙Z💙🇩💙🅰️'));
+
+        // https://www.unicode.org/emoji/charts-11.0/emoji-variants.html
+        it('should handle enclosed characters, other than digits', () => expect(getResponse('Дℹ️а')).toBe('Пℹ️иℹ️зℹ️дℹ️а'));
+        it('should not handle enclosed digits', () => expect(getResponse('Д1️⃣а')).toBeUndefined());
     });
 
     describe('just random cases reported by users', () => {

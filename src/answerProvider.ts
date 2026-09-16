@@ -15,6 +15,8 @@ const punct = [
     '\\p{ExtPict}', // All pictographic and all base emojis
     '\\p{EMod}', // All emoji modifiers (like skin tone)
     '\\p{Cf}', // All invisible formatting characters (ZWJ, ZWNJ, word joiner, zero-width space, soft hyphen, BOM, etc.)
+    '\\u{FE0E}\\u{FE0F}', // Text/emoji variation selectors, e.g. "❤️" is "❤" + U+FE0F
+    '\\u{20E3}', // Combining enclosing keycap, e.g. "1️⃣" is "1" + U+FE0F + U+20E3
 ].join();
 
 const daRegExp = new RegExp(
