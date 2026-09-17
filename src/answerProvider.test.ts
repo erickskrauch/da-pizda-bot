@@ -37,6 +37,10 @@ describe('getResponse', () => {
         it('should detect figure-space space between д and а letters', () => expect(getResponse('д\u2007а')).toBe('п\u2007и\u2007з\u2007д\u2007а'));
         it('should detect narrow non-breaking space between д and а letters', () => expect(getResponse('д\u202fа')).toBe('п\u202fи\u202fз\u202fд\u202fа'));
         it('should detect zero-width space between д and а letters', () => expect(getResponse('д\u200bа')).toBe('п\u200bи\u200bз\u200bд\u200bа'));
+        it('should detect Hangul choseong filler', () => expect(getResponse('д\u115fа')).toBe('п\u115fи\u115fз\u115fд\u115fа'));
+        it('should detect Hangul jungseong filler', () => expect(getResponse('д\u1160а')).toBe('п\u1160и\u1160з\u1160д\u1160а'));
+        it('should detect Hangul filler', () => expect(getResponse('д\u3164а')).toBe('п\u3164и\u3164з\u3164д\u3164а'));
+        it('should detect combining grapheme jointer', () => expect(getResponse('да\u034f')).toBe('пизда\u034f'));
     });
 
     describe('should handle some interesting cases', () => {

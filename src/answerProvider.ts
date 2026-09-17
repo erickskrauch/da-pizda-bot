@@ -15,7 +15,7 @@ const punct = [
     '\\p{ExtPict}', // All pictographic and all base emojis
     '\\p{EMod}', // All emoji modifiers (like skin tone)
     '\\p{Cf}', // All invisible formatting characters (ZWJ, ZWNJ, word joiner, zero-width space, soft hyphen, BOM, etc.)
-    '\\u{FE0E}\\u{FE0F}', // Text/emoji variation selectors, e.g. "❤️" is "❤" + U+FE0F
+    '\\p{Default_Ignorable_Code_Point}', // Characters meant to be invisible/ignored by renderers that don't support them, but which aren't \p{Cf}
     '\\u{20E3}', // Combining enclosing keycap, e.g. "1️⃣" is "1" + U+FE0F + U+20E3
 ].join();
 
