@@ -15,5 +15,22 @@ function recursiveFindText(node: any): string {
         return recursiveFindText(node.content);
     }
 
-    return node.map(recursiveFindText).join('');
+    if (Array.isArray(node)) {
+        return node.map(recursiveFindText).join('');
+    }
+
+    if (node.type === 'twemoji') {
+        return node.name;
+    }
+
+    switch (node.type) {
+        case 'twemoji':
+            return node.name;
+        case 'everyone':
+            return '@everyone';
+        case 'here':
+            return '@here';
+        default: // custom guild emoji, channel/role/user mentions, timestamp, etc., that I have no idea how to deal at a time
+            return '';
+    }
 }
