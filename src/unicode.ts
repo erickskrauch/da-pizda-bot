@@ -1,7 +1,13 @@
 const segmenter = new Intl.Segmenter(['ru', 'en']);
 
+// Intl.Segmenter merges a sequence of Regional Indicator Symbol letters into a single flag emoji grapheme,
+// but for us, they are always visible as separate letters, so split them ourselves
+const regionalIndicatorsOnly = /^[\u{1F1E6}-\u{1F1FF}]+$/u;
+
 export function splitByGlyph(str: string): Array<string> {
-    return Array.from(segmenter.segment(str)).map(({ segment }) => segment);
+    return Array
+        .from(segmenter.segment(str))
+        .flatMap(({ segment }) => regionalIndicatorsOnly.test(segment) ? Array.from(segment) : [segment]);
 }
 
 const normalizationMap = new Map<string, string>();

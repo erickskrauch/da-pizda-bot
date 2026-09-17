@@ -93,6 +93,13 @@ describe('getResponse', () => {
 
         it('should handle different variation selectors correctly for D and A and for the delimiter', () => expect(getResponse('🇩💙🅰️')).toBe('P💙I💙Z💙🇩💙🅰️'));
 
+        it('should handle the 🇩🇦 flag as letters', () => expect(getResponse('🇩🇦')).toBe('PIZ🇩🇦'));
+        it('should handle the 🇩🇦 flag with characters around', () => expect(getResponse('!🇩🇦?')).toBe('!PIZ🇩🇦!'));
+        it('should handle regional indicators with a delimiter', () => expect(getResponse('🇩💙🇦')).toBe('P💙I💙Z💙🇩💙🇦'));
+        it('should not handle other flags', () => expect(getResponse('🇧🇾')).toBeUndefined());
+        it('should not handle the 🇩🇦 flag after the text', () => expect(getResponse('Да🇩🇦')).toBeUndefined());
+        it('should handle a flag of unrelated letters after the text', () => expect(getResponse('🇩🇦 🇵🇱')).toBe('PIZ🇩🇦 🇵🇱'));
+
         // https://www.unicode.org/emoji/charts-11.0/emoji-variants.html
         it('should handle enclosed characters, other than digits', () => expect(getResponse('Дℹ️а')).toBe('Пℹ️иℹ️зℹ️дℹ️а'));
         it('should not handle enclosed digits', () => expect(getResponse('Д1️⃣а')).toBeUndefined());
